@@ -8,7 +8,7 @@ export default function Navbar() {
     const { cart } = useCart();
 
     return (
-        <nav className="h-[60px] flex items-center bg-gray-200">
+        <nav className="h-[60px] p-4 flex items-center bg-gray-200">
             <div className="flex justify-between items-center container m-auto">
                 <Link href="/"><p className="text-black font-semibold">Store</p></Link>
                 <div className="flex items-center gap-3">

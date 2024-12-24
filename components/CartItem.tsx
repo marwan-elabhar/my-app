@@ -9,7 +9,7 @@ export default function CartItem({ product }: { product: Product }) {
 
 
     return (
-        <div className='flex justify-between mt-3 border-b py-4'>
+        <div className='flex flex-col md:flex-row items-start md:items-center justify-between mt-3 border-b py-4'>
             <div className='flex items-center gap-2'>
                 <img src={product.thumbnail} alt="product-thumbnail" className='w-16 h-16' />
                 <div>
