@@ -9,7 +9,7 @@ export default function Cart() {
     const total = cart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0)
 
     return (
-        <div className="container m-auto mt-4">
+        <div className="container p-4 m-auto mt-4">
             <h1 className="text-2xl font-bold mb-8">Your Cart</h1>
             {
                 !cart.length ? <p className="font-semibold">Your cart is empty</p> :
