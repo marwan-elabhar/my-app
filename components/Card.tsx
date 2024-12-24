@@ -7,14 +7,15 @@ export interface Product {
   thumbnail: string
   price: number
   description: string
+  quantity: number
 }
 
 export default function Card({ product }: { product: Product }) {
 
-  const { cartCount, setCartCount } = useCart();
+  const { addToCart } = useCart();
 
   const addItemToCart = () => {
-    setCartCount(cartCount + 1)
+    addToCart(product)
   }
 
   return (
