@@ -7,6 +7,7 @@ interface CartContextType {
     cart: Product[];
     addToCart: (item: Product) => void;
     removeFromCart: (id: number) => void;
+    decreaseProductQuantity: (id: number) => void;
     clearCart: () => void;
 }
 
@@ -17,23 +18,47 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const addToCart = (item: Product) => {
         setCart((cart) => {
+
             const existingItem = cart.find((cartItem) => cartItem.id === item.id);
 
             if (existingItem) {
-                return cart.map((cartItem) =>
-                    cartItem.id === item.id
-                        ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-                        : cartItem
+                return cart.map((cartItem) => {
+                    if (cartItem.id === item.id) {
+                        return {
+                            ...cartItem,
+                            quantity: item.quantity + cartItem.quantity
+                        }
+                    }
+                    return cartItem
+                }
+
                 );
             }
+
 
             return [...cart, item];
         });
     };
 
+    const decreaseProductQuantity = (id: number) => {
+        setCart((cart) => {
+            const cartItem = cart.find(item => item.id === id)
+            if (cartItem?.quantity === 1) removeFromCart(id)
+            return cart.map(item => {
+                if (item.id === id) {
+                    return {
+                        ...item,
+                        quantity: item.quantity - 1
+                    }
+                }
+                return item
+            })
+        })
+    }
+
     const removeFromCart = (id: number) => {
         setCart((cart) => {
-           return cart.filter((cartItem) => cartItem.id !== id)
+            return cart.filter(item => item.id !== id)
         })
     }
 
@@ -41,7 +66,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setCart([])
     }
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, decreaseProductQuantity, clearCart }}>
             {children}
         </CartContext.Provider>
     );
