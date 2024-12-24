@@ -27,7 +27,7 @@ export default async function Home() {
     <div className="mt-4 container m-auto">
       <h1 className="text-2xl font-bold">Our Products</h1>
       <div className="grid grid-cols-4 gap-4 mt-4">
-        {isLoading ? Array.from({ length: 8 }).map((_, index) => {
+        {isLoading ? Array.from({ length: 8 }).map(() => {
           return <div className="w-64 h-[400px] bg-gray-300 rounded-md animate-pulse"></div>
         }
         ) :
