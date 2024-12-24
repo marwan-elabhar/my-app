@@ -5,15 +5,26 @@ export default async function Home() {
 
   let isLoading = true
   let products: Product[] = []
+  type APIResponse = {
+    products: Product[]
+
+  }
   try {
     const response = await fetch('https://dummyjson.com/products')
-    products = (await response.json()).products as Product[]
+    const data = (await response.json()) as APIResponse
+    products = data.products.map(product => {
+      return {
+        ...product,
+        quantity: 1
+      }
+    }) as Product[]
+
   } finally {
     isLoading = false
   }
 
   return (
-    <div className="mt-4 w-[1200px] m-auto">
+    <div className="mt-4 container m-auto">
       <h1 className="text-2xl font-bold">Our Products</h1>
       <div className="grid grid-cols-4 gap-4 mt-4">
         {isLoading ? Array.from({ length: 8 }).map((_, index) => {
